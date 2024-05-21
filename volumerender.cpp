@@ -46,11 +46,21 @@ vector<MatrixXf> HDF5Loading(const string& filename, const string& datasetName){
     return datacube;
 }
 
+Vector4d transferFunction(double x) {
+    double r = 1.0 * exp(-(x - 9.0) * (x - 9.0) / 1.0) + 0.1 * exp(-(x - 3.0) * (x - 3.0) / 0.1) + 0.1 * exp(-(x + 3.0) * (x + 3.0) / 0.5);
+    double g = 1.0 * exp(-(x - 9.0) * (x - 9.0) / 1.0) + 1.0 * exp(-(x - 3.0) * (x - 3.0) / 0.1) + 0.1 * exp(-(x + 3.0) * (x + 3.0) / 0.5);
+    double b = 0.1 * exp(-(x - 9.0) * (x - 9.0) / 1.0) + 0.1 * exp(-(x - 3.0) * (x - 3.0) / 0.1) + 1.0 * exp(-(x + 3.0) * (x + 3.0) / 0.5);
+    double a = 0.6 * exp(-(x - 9.0) * (x - 9.0) / 1.0) + 0.1 * exp(-(x - 3.0) * (x - 3.0) / 0.1) + 0.01 * exp(-(x + 3.0) * (x + 3.0) / 0.5);
+    
+    return Vector4d(r, g, b, a);
+}
+
 int main(){
     try{
         auto datacube = HDF5Loading("datacube.hdf5", "density");
     }catch(const exception& e){
         cerr << "Failed to load data: " << e.what() << endl;
     }
+
     return 0;
 }
