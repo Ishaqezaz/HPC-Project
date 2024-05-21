@@ -55,17 +55,13 @@ Vector4d transferFunction(double x){
     return Vector4d(r, g, b, a);
 }
 
-double trilinearInterpolate(const std::vector<double>& data, int Nx, int Ny, int Nz, double x, double y, double z){
-    int x0 = floor(x);
-    int x1 = x0 + 1;
-    int y0 = floor(y);
-    int y1 = y0 + 1;
-    int z0 = floor(z);
-    int z1 = z0 + 1;
-
-    if(x1 >= Nx) x1 = Nx - 1;
-    if(y1 >= Ny) y1 = Ny - 1;
-    if(z1 >= Nz) z1 = Nz - 1;
+double interpolate(const std::vector<double>& data, int Nx, int Ny, int Nz, double x, double y, double z){
+    int x0 = std::max(0, std::min(static_cast<int>(floor(x)), Nx - 1));
+    int x1 = std::max(0, std::min(x0 + 1, Nx - 1));
+    int y0 = std::max(0, std::min(static_cast<int>(floor(y)), Ny - 1));
+    int y1 = std::max(0, std::min(y0 + 1, Ny - 1));
+    int z0 = std::max(0, std::min(static_cast<int>(floor(z)), Nz - 1));
+    int z1 = std::max(0, std::min(z0 + 1, Nz - 1));
 
     double xd = x - x0;
     double yd = y - y0;
