@@ -19,11 +19,15 @@ using namespace std;
 using namespace Eigen;
 using namespace H5;
 
-// Function declarations
-void loadVolumeData(const std::string& filename, Tensor<double, 3>& data);
-Eigen::Tensor<double, 3> interpn(const Tensor<double, 3>& data, const MatrixXd& points, int N);
+void loadVolumeData(const std::string& filename, Eigen::Tensor<double, 3>& data);
 Eigen::MatrixXd transferFunction(const Eigen::VectorXd& x);
-void linspace(double start, double end, int num, Eigen::MatrixXd& result);
+void linspace(double start, double end, int num, Eigen::VectorXd& result);
 Eigen::MatrixXd createPointsMatrix(const Eigen::VectorXd& x, const Eigen::VectorXd& y, const Eigen::VectorXd& z);
 
-#endif // UTILITIES_H
+void findCellIndices(const Eigen::MatrixXd& grid, const Eigen::Vector3d& point, int& ix, int& iy, int& iz);
+Eigen::MatrixXd createCustomGridMatrix(const Eigen::VectorXd& x, const Eigen::VectorXd& y, const Eigen::VectorXd& z);
+Eigen::VectorXd trilinearInterpolateMultiple(const Eigen::Tensor<double, 3>& values, const Eigen::MatrixXd& grid, const Eigen::MatrixXd& qi);
+Eigen::MatrixXd gridPoints(const Eigen::VectorXd& x, const Eigen::VectorXd& y, const Eigen::VectorXd& z);
+
+                                        
+#endif
