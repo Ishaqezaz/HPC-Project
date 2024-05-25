@@ -23,15 +23,15 @@ int main() {
     points.col(2) = z;
 
     int Nangles = 10;
-    double angleOffset = 100.0 * M_PI / 180.0;
 
     for (int angleIndex = 0; angleIndex < Nangles; angleIndex++) {
         std::cout << "Rendering Scene " << angleIndex + 1 << " of " << Nangles << ".\n";
 
-        double angle = angleOffset + M_PI / 2 * angleIndex / Nangles;
+        double angle = M_PI / 2 * angleIndex / Nangles + M_PI / 4;
         int N = 180;
 
         Eigen::VectorXd c = Eigen::VectorXd::LinSpaced(N, -N / 2.0, N / 2.0);
+
         // Create meshgrid
         Eigen::Tensor<double, 3> qx(N, N, N);
         Eigen::Tensor<double, 3> qy(N, N, N);
@@ -47,10 +47,11 @@ int main() {
             }
         }
 
-        // rotation
-        Eigen::Tensor<double, 3> qxR = qx;
-        Eigen::Tensor<double, 3> qyR = qy * std::cos(angle) - qz * std::sin(angle);
-        Eigen::Tensor<double, 3> qzR = qy * std::sin(angle) + qz * std::cos(angle);
+        Eigen::Tensor<double, 3> qxR = qx * std::cos(angle) - qz * std::sin(angle);
+        Eigen::Tensor<double, 3> qzR = qx * std::sin(angle) + qz * std::cos(angle);
+        Eigen::Tensor<double, 3> qyR = qy;  
+
+
 
         // Flattening
         Eigen::VectorXd qxR_flat(N * N * N);
@@ -80,7 +81,7 @@ int main() {
         int cameraGridDim2 = 180;
 
         // image intializing
-        cv::Mat image(cameraGridDim1, cameraGridDim2, CV_64FC3, cv::Scalar(0, 0, 0)); // Using double precision
+        cv::Mat image(cameraGridDim1, cameraGridDim2, CV_64FC3, cv::Scalar(0, 0, 0)); 
 
         // Iterate over slices
         for (int i = 0; i < cameraGridDim1; ++i) {
@@ -93,19 +94,18 @@ int main() {
                 for (int k = 0; k < cameraGridDim2; ++k) {
                     int idx = j * cameraGridDim2 + k;
                     double alpha = transferResults(3, idx);
-                    double red = transferResults(2, idx); //openCV (bgr)
+                    double red = transferResults(2, idx); 
                     double green = transferResults(1, idx);
                     double blue = transferResults(0, idx);
 
                     cv::Vec3d& pixel = image.at<cv::Vec3d>(j, k);
-                    pixel[0] = alpha * blue + (1 - alpha) * pixel[0]; // Blue channel
-                    pixel[1] = alpha * green + (1 - alpha) * pixel[1]; // Green channel
-                    pixel[2] = alpha * red + (1 - alpha) * pixel[2]; // Red channel
+                    pixel[0] = alpha * blue + (1 - alpha) * pixel[0]; 
+                    pixel[1] = alpha * green + (1 - alpha) * pixel[1]; 
+                    pixel[2] = alpha * red + (1 - alpha) * pixel[2]; 
                 }
             }
         }
 
-        // 8 bit
         cv::Mat imageUC;
         cv::resize(image, image, cv::Size(960, 960), 0, 0, cv::INTER_LINEAR);
 
@@ -114,7 +114,7 @@ int main() {
         cv::cvtColor(imageUC, outputImage, cv::COLOR_BGR2RGB);
 
         // Resizing and saving
-        std::string imageName = "volumerender_" + std::to_string(angleIndex) + ".png";
+        std::string imageName = "images/volumerender_" + std::to_string(angleIndex) + ".png";
         cv::imwrite(imageName, outputImage);
     }
 
