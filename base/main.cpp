@@ -8,8 +8,14 @@ using namespace Eigen;
 using namespace std::chrono;
 
 
-int main() {
- 
+int main(int argc, char** argv){
+    
+    int Nangles = 10;  // Default dimension
+
+    if (argc > 1) {
+        Nangles = std::stoi(argv[1]);  // Convert the first argument to an integer
+    }
+
 
    auto start = high_resolution_clock::now();
 
@@ -33,8 +39,6 @@ int main() {
     Eigen::Tensor<double, 3> qy(N, N, N);
     Eigen::Tensor<double, 3> qz(N, N, N);
     createMeshgrid(qx, qy, qz, N);
-
-    int Nangles = 10;
 
     for (int angleIndex = 0; angleIndex < Nangles; angleIndex++) {
         //std::cout << "Rendering Scene " << angleIndex + 1 << " of " << Nangles << ".\n";
