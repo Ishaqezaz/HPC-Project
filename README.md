@@ -30,7 +30,7 @@ chmod +x ./dependencies.sh
 To compile the serial program and the tests:
 ```
 $ make 
-'''
+```
 
 To run the serial program:
 ```
