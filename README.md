@@ -89,7 +89,7 @@ The compilation for the following versions are done similary to that described a
 
 ## OpenMP
 
-Before execution, resource allocation via Slurm is required. Below is an example on how to request an allocation and run a program on an interactive node:
+Before execution, resource allocation via Slurm is required. Below is an example on how to request an allocation and run a program on an interactive node.
 '''
 $ salloc --nodes=1 -t 0:30:00 -A <allocation code> -p shared --ntasks-per-node=1 --cpus-per-task=4
 $ OMP_NUM_THREADS=4
