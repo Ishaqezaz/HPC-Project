@@ -35,9 +35,9 @@ $ make
 
 To run the serial program:
 ```
-$ make run ARG
+$ make run ARGS
 ```
-where 'ARG' is the number of images you wish to process. The default is 10 images.
+Where 'ARGS' is the number of images you wish to process. The default is 10 images.
 
 To run the tests:
 ```
@@ -48,7 +48,6 @@ To clean up:
 ```
 $ make clean
 ```
-
 
 ## Compiling and running on Dardel
 For installing the dependencies:
@@ -86,7 +85,6 @@ $ make
 $ make install
 $ export LD_LIBRARY_PATH=~/Private/lib/hdf5/lib:~/Private/lib/opencv/lib64:$LD_LIBRARY_PATH
 ```
-
 The paths in the Makefiles need to be adjusted based on the installations paths above.
 The compilation for the following versions are done similary to that described above.
 
