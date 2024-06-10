@@ -2,7 +2,6 @@
 #include <unsupported/Eigen/CXX11/Tensor>
 #include <chrono>
 
-
 using namespace cv;
 using namespace Eigen;
 using namespace std::chrono;
@@ -10,16 +9,15 @@ using namespace std::chrono;
 
 int main(int argc, char** argv){
     
-    int Nangles = 10;  // Default dimension
-
+    int Nangles = 10; // default
     if (argc > 1) {
-        Nangles = std::stoi(argv[1]);  // Convert the first argument to an integer
+        Nangles = std::stoi(argv[1]);
     }
 
 
    auto start = high_resolution_clock::now();
 
-    // LOADING DATA
+    // loading data
     Tensor<double, 3> data;
     std::string filename = "datacube.hdf5";
     loadVolumeData(filename, data);
@@ -33,7 +31,7 @@ int main(int argc, char** argv){
     points.col(1) = Eigen::VectorXd::LinSpaced(Ny, -Ny / 2.0, Ny / 2.0);
     points.col(2) = Eigen::VectorXd::LinSpaced(Nz, -Nz / 2.0, Nz / 2.0);
     
-    // MESHGRID
+    // meshgrid creation
     int N = 180;
     Eigen::Tensor<double, 3> qx(N, N, N);
     Eigen::Tensor<double, 3> qy(N, N, N);
@@ -41,11 +39,11 @@ int main(int argc, char** argv){
     createMeshgrid(qx, qy, qz, N);
 
     for (int angleIndex = 0; angleIndex < Nangles; angleIndex++) {
-        //std::cout << "Rendering Scene " << angleIndex + 1 << " of " << Nangles << ".\n";
+        std::cout << "Rendering Scene " << angleIndex + 1 << " of " << Nangles << ".\n";
 
         double angle =  M_PI / 2 * angleIndex / Nangles;
 
-        // ROTATION
+        // rotation
         Eigen::Tensor<double, 3> qxR = qx;
         Eigen::Tensor<double, 3> qyR = qy * std::cos(angle) - qz * std::sin(angle);
         Eigen::Tensor<double, 3> qzR = qy * std::sin(angle) + qz * std::cos(angle);
@@ -59,13 +57,13 @@ int main(int argc, char** argv){
         qi.col(2) = qyR_flat;
         qi.col(1) = qzR_flat;
         
-        // INTORPOLATION
+        // interpolation
         Eigen::VectorXd cameraGrid = interpolation(data, points, qi);
 
         int cameraGridDim1 = 180;
         int cameraGridDim2 = 180;
 
-        // RENDERING
+        // transfer and mapping
         cv::Mat image(cameraGridDim1, cameraGridDim2, CV_64FC3, cv::Scalar(0, 0, 0));
         for (int i = 0; i < cameraGridDim1; ++i) {
             Eigen::VectorXd dataslice = cameraGrid.segment(i * cameraGridDim2 * cameraGridDim2, cameraGridDim2 * cameraGridDim2);

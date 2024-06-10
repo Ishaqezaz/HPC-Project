@@ -9,7 +9,7 @@ void loadVolumeData(const std::string& filename, Eigen::Tensor<double, 3>& data)
     dataspace.getSimpleExtentDims(dims, NULL);
     int Nx = dims[0];
     int Ny = dims[1];
-    int Nz = dims[2]s;
+    int Nz = dims[2];
 
     data.resize(Nx, Ny, Nz);
     dataset.read(data.data(), PredType::NATIVE_DOUBLE);
@@ -22,7 +22,7 @@ Eigen::VectorXd interpolation(const Eigen::Tensor<double, 3>& values, const Eige
 
     Eigen::VectorXd results(qi.rows());
 
-    // Precompute distances
+    // precompute distances
     double dx = points(1, 0) - points(0, 0);
     double dy = points(1, 1) - points(0, 1);
     double dz = points(1, 2) - points(0, 2);
@@ -61,7 +61,7 @@ Eigen::MatrixXd transferFunction(const Eigen::VectorXd& x) {
     int n = x.size();
     Eigen::MatrixXd output(4, n);
 
-    // Precompute frequently operations
+    // precompute frequently operations
     Eigen::ArrayXd xMinus9Squared = (x.array() - 9.0).square();
     Eigen::ArrayXd xMinus3Squared = (x.array() - 3.0).square();
     Eigen::ArrayXd xPlus3Squared = (x.array() + 3.0).square();
