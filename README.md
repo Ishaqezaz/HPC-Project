@@ -1,8 +1,10 @@
 # Volume render of a 3D datacube
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="Serial/images/volumerender0.png" alt="Volume Render 0" width="30%" />
-  <img src="Serial/images/volumerender0.png" alt="Volume Render 1" width="30%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 0" width="20%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 2" width="20%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 4" width="20%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 6" width="20%" />
 </div>
 
 ## Introduction
@@ -17,7 +19,7 @@ This project was implemented with the following dependencies, which are the late
 - HDF5: Version 1.14.3
 - GoogleTest: Version 1.14.0
 
-To install the dependenices run on the project root directory:
+To install the dependencies, run the following command in the project root directory:
 ```
 chmod +x ./dependencies.sh
 ```
