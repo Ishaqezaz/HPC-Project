@@ -1,10 +1,10 @@
 # Volume render of a 3D datacube
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="Serial/images/volumerender0.png" alt="Volume Render 0" width="25%" />
-  <img src="Serial/images/volumerender0.png" alt="Volume Render 2" width="25%" />
-  <img src="Serial/images/volumerender0.png" alt="Volume Render 4" width="25%" />
-  <img src="Serial/images/volumerender0.png" alt="Volume Render 6" width="25%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 0" width="20%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 2" width="20%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 4" width="20%" />
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 6" width="20%" />
 </div>
 
 ## Introduction
