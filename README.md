@@ -1,12 +1,11 @@
 # Volume render of a 3D datacube
 
-<div style="display: flex; justify-content: center;;">
-  <img src="Serial/images/volumerender0.png" alt="Volume Render 0" width="20%" />
-  <img src="Serial/images/volumerender2.png" alt="Volume Render 2" width="20%" />
-  <img src="Serial/images/volumerender4.png" alt="Volume Render 4" width="20%" />
-  <img src="Serial/images/volumerender6.png" alt="Volume Render 6" width="20%" />
-</div>
-
+<p align="center">
+  <img src="Serial/images/volumerender0.png" alt="Volume Render 0" width="20%" style="padding: 5px;" />
+  <img src="Serial/images/volumerender2.png" alt="Volume Render 2" width="20%" style="padding: 5px;" />
+  <img src="Serial/images/volumerender4.png" alt="Volume Render 4" width="20%" style="padding: 5px;" />
+  <img src="Serial/images/volumerender6.png" alt="Volume Render 6" width="20%" style="padding: 5px;" />
+</p>
 
 ## Introduction
 Volume rendering is widely used in fields like entertainment, medicine, and scientific research. This computation-intensive process demands high performance solutions for efficient handling of large datasets.
@@ -35,9 +34,9 @@ $ make
 
 To run the serial program:
 ```
-$ make run ARGS
+$ make run ARG
 ```
-Where 'ARGS' is the number of images you wish to process. The default is 10 images.
+Where 'ARG' is the number of images you wish to process. The default is 10 images.
 
 To run the tests:
 ```
@@ -94,13 +93,13 @@ Before execution, resource allocation via Slurm is required. Below is an example
 '''
 $ salloc --nodes=1 -t 0:30:00 -A <allocation code> -p shared --ntasks-per-node=1 --cpus-per-task=4
 $ OMP_NUM_THREADS=4
-$ srun -n 1 ./volumerender ARGS
+$ srun -n 1 ./volumerender ARG
 '''
 
 ## MPI
 Similarly, resource allocation is required before execution. Execute the code with varying processes as follows:
 ```
-$ srun -n 4 ./volumerender ARGS
+$ srun -n 4 ./volumerender ARG
 ```
 Where 4 represents the number of processes.
 
